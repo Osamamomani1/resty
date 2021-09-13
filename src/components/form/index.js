@@ -44,7 +44,6 @@ function Form (props) {
         <button type="submit" data-testid="submit">GO!</button>
       </label>
       <label className="methods">
-        {/* <button type='button' id="hide" ></button> */}
         <button className='butt' type='button' id="get" onClick={setMethod}>GET</button>
         <button className='butt' type='button' id="post" onClick={handlePostTextArea}>POST</button>
         <button className='butt' type='button' id="put" onClick={handlePostTextArea}>PUT</button>
