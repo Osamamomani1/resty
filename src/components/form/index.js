@@ -9,13 +9,13 @@ function Form (props) {
   let [url, seturl] = useState("https://pokeapi.co/api/v2/pokemon");
   let [requestBody, setrequestBody] = useState("");
 
-   function handleSubmit(e) {
+  function handleSubmit(e){
     e.preventDefault();
     const formData = {
-      method: "GET",
-      url: "https://pokeapi.co/api/v2/pokemon",
+      method:method,
+      url:url
     };
-    props.handleApiCall(formData,requestBody);
+    props.handleApiCall(formData, requestBody);
   }
 
 
