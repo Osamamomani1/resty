@@ -1,6 +1,12 @@
 import React from 'react';
-import { useState} from 'react';
+import { useState, useReducer} from 'react';
+import peopleReducer, {addAction, removeAction, emptyAction} from '../history/history';
 import './form.scss';
+
+const initialState = {
+  people: [], 
+  count: 0
+}
 
 function Form (props) {
 
@@ -9,6 +15,8 @@ function Form (props) {
   let [url, seturl] = useState("https://pokeapi.co/api/v2/pokemon");
   let [requestBody, setrequestBody] = useState("");
 
+  const [state, dispatch] = useReducer(peopleReducer, initialState);
+
   function handleSubmit(e){
     e.preventDefault();
     const formData = {
@@ -16,6 +24,9 @@ function Form (props) {
       url:url
     };
     props.handleApiCall(formData, requestBody);
+    // const name = e.target.person.value;
+    // dispatch(addAction(name));
+    // e.target.reset();
   }
 
 
