@@ -1,10 +1,11 @@
 # RESTY
 
-[code Sandbox](https://codesandbox.io/s/aged-shadow-6e06l)
+[code Sandbox reducer](https://codesandbox.io/s/eager-marco-0wt62?file=/src/App.js)
 
 ## UML
 
 ![lab27](lab27.png)
+
 
 ## test
 
