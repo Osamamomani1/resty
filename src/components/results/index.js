@@ -1,11 +1,14 @@
 import React from 'react';
 import './result.scss';
-function Results (data){
-    return (
-      <section>
-        <pre>{data ? JSON.stringify(data, undefined, 2) : null}</pre>
-      </section>
-    );
+import JSONPretty from 'react-json-pretty';
+import 'react-json-pretty/themes/monikai.css';
+
+function Results(props) {
+  return (
+    <section>
+    { props.data ?<JSONPretty data-testid="renderedData" data={props.data}></JSONPretty>  :  <h2>Loading..</h2>}
+  </section>
+  )
 }
 
 export default Results;

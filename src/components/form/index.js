@@ -1,33 +1,67 @@
 import React from 'react';
-
+import { useState, useReducer} from 'react';
+import peopleReducer, {addAction, removeAction, emptyAction} from '../history/history';
 import './form.scss';
 
-function Form ({handleApiCall}) {
+const initialState = {
+  people: [], 
+  count: 0
+}
 
-   function handleSubmit(e) {
+function Form (props) {
+
+  let [showPostTextArea,setShowPostTextArea] = useState(false);
+  let [method, setmethod] = useState('get');
+  let [url, seturl] = useState("https://pokeapi.co/api/v2/pokemon");
+  let [requestBody, setrequestBody] = useState("");
+
+  const [state, dispatch] = useReducer(peopleReducer, initialState);
+
+  function handleSubmit(e){
     e.preventDefault();
     const formData = {
-      method: "GET",
-      url: "https://pokeapi.co/api/v2/pokemon",
+      method:method,
+      url:url
     };
-    handleApiCall(formData);
+    props.handleApiCall(formData, requestBody);
+    // const name = e.target.person.value;
+    // dispatch(addAction(name));
+    // e.target.reset();
   }
 
+
+  function handlePostTextArea(e){
+    setShowPostTextArea(!showPostTextArea);
+    setmethod(e.target.id);  
+  }
+
+  function setMethod(e){
+    setmethod(e.target.id);
+  }
+
+  function handleUrl(e){
+    seturl(e.target.value);
+  }
+
+  function handleRequestBody(e){
+    setrequestBody(e.target.value);
+  }
     return (
       <>
         <form onSubmit={handleSubmit}>
-          <label >
-            <span>URL: </span>
-            <input name='url' type='text' />
-            <button type="submit">GO!</button>
-          </label>
-          <label className="methods">
-            <span id="get">GET</span>
-            <span id="post">POST</span>
-            <span id="put">PUT</span>
-            <span id="delete">DELETE</span>
-          </label>
-        </form>
+      <label >
+        <span>URL: </span>
+        <input name='url' type='text' onChange={handleUrl} />
+        <button type="submit" data-testid="submit">GO!</button>
+      </label>
+      <label className="methods">
+        <button className='butt' type='button' id="get" onClick={setMethod}>GET</button>
+        <button className='butt' type='button' id="post" onClick={handlePostTextArea}>POST</button>
+        <button className='butt' type='button' id="put" onClick={handlePostTextArea}>PUT</button>
+        <button className='butt' type='button' id="delete" onClick={setMethod}>DELETE</button>
+      </label>
+      {showPostTextArea && <textarea name="postAndPut" rows="10" cols="35" onChange={handleRequestBody}/>}
+    </form>
       </>
     );
   
